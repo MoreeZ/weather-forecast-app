@@ -1,0 +1,40 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "server-dev": "nodemon --exec babel-node server.js",
+    "watch-client": "vite build ..\\client\\ -w -d",
+    "dev": "concurrently \"npm run watch-client\" \"npm run server-dev\" --timestamp-format \"HH:mm:ss\" --prefix \"{time} [{name}]\" --kill-others --names \"client,server\" ",
+    "build-client": "vite build .\\client\\",
+    "server": "node .\\server\\server.js\\",
+    "prod": "npm run build-client && npm run server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "concurrent": "^0.3.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "axios": "^1.5.1",
+    "chart.js": "^4.4.0",
+    "sass": "^1.69.1",
+    "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.22.20",
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9"
+  }
+}
