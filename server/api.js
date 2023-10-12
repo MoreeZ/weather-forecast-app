@@ -1,6 +1,6 @@
 import express from "express";
 import fetch from "node-fetch";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const API_KEY = process.env.API_KEY; // Hidden away with dotenv
@@ -22,7 +22,9 @@ app.get("/weather/:city", async function (req, res) {
       !geocodingData[0].lat ||
       !geocodingData[0].lon
     )
-      throw new Error("Failed to fetch geocoding data. Reason: " + geocodingRes.statusText);
+      throw new Error(
+        "Failed to fetch geocoding data. Reason: " + geocodingRes.statusText
+      );
     const { lat, lon } = geocodingData[0];
     console.log("Sending Weather request");
     const weatherRes = await fetch(

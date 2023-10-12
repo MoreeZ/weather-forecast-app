@@ -5,8 +5,8 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "server-dev": "nodemon --exec babel-node server.js",
-    "watch-client": "vite build ..\\client\\ -w -d",
+    "server-dev": "nodemon --exec babel-node .\\server\\server.js",
+    "watch-client": "vite build .\\client\\ -w -d",
     "dev": "concurrently \"npm run watch-client\" \"npm run server-dev\" --timestamp-format \"HH:mm:ss\" --prefix \"{time} [{name}]\" --kill-others --names \"client,server\" ",
     "build-client": "vite build .\\client\\",
     "server": "node .\\server\\server.js\\",
