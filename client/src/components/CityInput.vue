@@ -16,7 +16,7 @@
       </datalist>
     </div>
     <button @click="submit">
-      <DotLoader v-if="isLoading" /> <span v-else>"Check Weather"</span>
+      <DotLoader v-if="isLoading" /> <span v-else>Check Weather</span>
     </button>
     <p class="error-message" v-if="errorMsg.length > 0">{{ errorMsg }}</p>
   </form>
