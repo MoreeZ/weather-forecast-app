@@ -1,3 +1,4 @@
+<!-- Source: https://epic-spinners.epicmax.co/?ref=madewithvuejs.com -->
 <template>
   <div class="circles-to-rhombuses-spinner">
     <div class="circle"></div>

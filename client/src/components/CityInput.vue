@@ -1,6 +1,7 @@
 <template>
   <form class="city-input-form" @submit.prevent>
     <p>Plase enter the location and dates to receive a <i>5 day weather forecast</i></p>
+    <!-- Input field with autocomplete -->
     <div class="input-field">
       <label class="input-label" for="city">Location:</label>
       <input
@@ -15,6 +16,7 @@
         <option v-for="capital in capitals" :key="capital">{{ capital }}</option>
       </datalist>
     </div>
+    <!-- Submit button with a loader and error handling -->
     <button @click="submit">
       <DotLoader v-if="isLoading" /> <span v-else>Check Weather</span>
     </button>
@@ -32,16 +34,19 @@ const isLoading = ref(false)
 const errorMsg = ref('')
 const lastSearchValue = ref('')
 
+// Fetches weather daily weather data from the express server
 const getWeather = async function (cityStr) {
   let result = await axios.get(`/weather/${cityStr}`)
   return result.data.daily
 }
 
+// Fetches weather a list of pollution data from the express server
 const getPollution = async function (cityStr) {
   let result = await axios.get(`/pollution/${cityStr}`)
   return result.data.list
 }
 
+// Takes in a string and capitalizes each word in the string
 const parseCityName = (nameStr) => {
   let wordsArr = nameStr.split(' ')
   for (var i = 0; i < wordsArr.length; i++) {
@@ -64,11 +69,14 @@ export default {
   },
   methods: {
     async submit() {
+      // If the same city is searched a second time there is no need to make another request.
       if (!this.isLoading && this.city !== this.lastSearchValue) {
         this.isLoading = true
         try {
           this.lastSearchValue = this.city
           this.city = parseCityName(this.city)
+          // Fetch weather and pollution data and store it in state of
+          // App.vue by using setters imported from props.  
           const weatherData = await getWeather(this.city)
           this.$emit('setWeatherData', weatherData.slice(1, 6))
           const pollutionData = await getPollution(this.city)
@@ -76,7 +84,9 @@ export default {
           this.$emit('setActivethis.city', this.city)
           this.errorMsg = ''
         } catch (err) {
+          // If failed to fetch data throw the error into the console
           console.error(err)
+          // Then set the error message in the UI
           this.errorMsg =
             'Failed to load information for: "' +
             this.city +

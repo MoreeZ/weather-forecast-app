@@ -1,3 +1,4 @@
+// A list of capital cities of all countries as of 2023.
 export default [
   'Sukhumi',
   'Kabul',

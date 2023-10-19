@@ -15,9 +15,11 @@
 <script>
 export default {
   methods: {
+    // Takes date in ms and returns a the day of the week.
     getDay(ms) {
       return new Date(ms).toLocaleString('en-us', { weekday: 'long' })
     },
+    // Takes date in ms and returns a readable date string dd/mm/yyyy
     getDate(ms) {
       const date = new Date(ms)
       const yyyy = date.getFullYear()

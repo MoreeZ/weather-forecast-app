@@ -2,7 +2,7 @@
   <div id="app">
     <div class="app-wrapper">
       <h1 class="title">Awesomest Weather App</h1>
-      <!-- Location and dates input form -->
+      <!-- Location input box and submit button -->
       <div class="city-input-wrapper">
         <CityInput
           @setWeatherData="dailyWeather = $event"
@@ -11,60 +11,80 @@
         ></CityInput>
       </div>
       <div class="result-container" v-if="dailyWeather.length > 0">
-        <h2 v-if="this.activeCity.length > 0">Results for "{{ this.activeCity }}"</h2>
-        <!-- Weather data display -->
-        <p class="forecast-message">Forecast for the next five days, starting tomorrow:</p>
+        <h2 v-if="this.activeCity.length > 0">
+          Results for "{{ this.activeCity }}"
+        </h2>
+        <!-- Five-day weather forecast -->
+        <p class="forecast-message">
+          Forecast for the next five days, starting tomorrow:
+        </p>
         <div class="weather-display-container">
           <WeatherCard
             v-for="(day, index) in dailyWeather"
             :key="index"
             :data="
               Object.assign(day, {
-                pm2_5: dailyPollution.length > 0 ? dailyPollution[index].components.pm2_5 : null
+                pm2_5:
+                  dailyPollution.length > 0
+                    ? dailyPollution[index].components.pm2_5
+                    : null,
               })
             "
           />
         </div>
-        <!-- Written summary of weather information -->
+        <!-- Summary and conclusion of weather information -->
         <WeatherSummary
           v-if="dailyWeather.length > 0"
           :dailyWeather="dailyWeather"
           :dailyPollution="dailyPollution"
         />
         <!-- A weather chart created with chart.js -->
-        <SummaryChart v-if="dailyWeather.length > 0" :dailyWeather="dailyWeather"></SummaryChart>
+        <SummaryChart
+          v-if="dailyWeather.length > 0"
+          :dailyWeather="dailyWeather"
+        ></SummaryChart>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import WeatherCard from './components/WeatherCard.vue'
-import CityInput from './components/CityInput.vue'
-import SummaryChart from './components/SummaryChart.vue'
-import WeatherSummary from './components/WeatherSummary.vue'
+import { ref } from "vue";
+import WeatherCard from "./components/WeatherCard.vue";
+import CityInput from "./components/CityInput.vue";
+import SummaryChart from "./components/SummaryChart.vue";
+import WeatherSummary from "./components/WeatherSummary.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   setup() {
-    const dailyWeather = ref([])
-    const dailyPollution = ref([])
-    const activeCity = ref('')
+    // Set up default state
+    const dailyWeather = ref([]);
+    const dailyPollution = ref([]);
+    const activeCity = ref("");
     return {
       dailyWeather,
       dailyPollution,
-      activeCity
-    }
+      activeCity,
+    };
   },
-  components: { WeatherCard, CityInput, SummaryChart, WeatherSummary }
-}
+  components: { WeatherCard, CityInput, SummaryChart, WeatherSummary },
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+// Import Open Sans font from Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&family=Open+Sans:wght@300;400;500;600;700&display=swap");
+// Set default font of everything to Open Sans
 * {
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
+}
+
+body {
+  background-color: #8ec5fc;
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+  margin: 0;
+  padding: 0;
 }
 
 #app {
@@ -74,12 +94,6 @@ export default {
   align-items: center;
 }
 
-body {
-  background-color: #8ec5fc;
-  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  margin: 0;
-  padding: 0;
-}
 .app-wrapper {
   background-color: white;
   display: flex;

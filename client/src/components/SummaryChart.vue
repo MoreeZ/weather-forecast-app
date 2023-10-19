@@ -1,3 +1,4 @@
+<!-- This component uses Chart.js. https://www.chartjs.org/docs/latest/ -->
 <template>
   <h2>Temperature Chart</h2>
   <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
@@ -22,6 +23,8 @@ const getDay = (ms) => {
   return new Date(ms).toLocaleString('en-us', { weekday: 'long' })
 }
 
+// Parses the input parameter weatherData and 
+// returns an object with valid chart data
 const setChartData = (weatherData) => ({
   labels: weatherData.map((day) => getDay(day.dt * 1000)),
   datasets: [
@@ -54,12 +57,14 @@ export default {
     dailyWeather.value = props.dailyWeather
   },
   watch: {
+    // Whenever dailyWeather updates update chartData
     dailyWeather: function (newDailyWeather) {
       this.chartData = setChartData(newDailyWeather)
     }
   },
   data() {
     return {
+      // Initialize chartData with the current dailyWeahter.
       chartData: setChartData(dailyWeather.value),
       chartOptions: {
         responsive: true
