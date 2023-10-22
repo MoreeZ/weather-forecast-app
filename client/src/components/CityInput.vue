@@ -86,6 +86,9 @@ export default {
         } catch (err) {
           // If failed to fetch data throw the error into the console
           console.error(err)
+          // reset content on error
+          this.$emit('setWeatherData', [])
+          this.$emit('setPollutionData', [])
           // Then set the error message in the UI
           this.errorMsg =
             'Failed to load information for: "' +
